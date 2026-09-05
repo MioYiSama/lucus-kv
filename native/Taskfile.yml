@@ -9,4 +9,5 @@ tasks:
       CMAKE_EXPORT_COMPILE_COMMANDS: 1
 
   build:
+    deps: [configure]
     cmd: cmake --build build

@@ -5,3 +5,6 @@ version: "3"
 tasks:
   build:
     cmd: cargo build
+
+  run:
+    cmd: cargo run
