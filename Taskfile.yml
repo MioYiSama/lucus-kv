@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+includes:
+  control:
+    taskfile: ./control/Taskfile.yml
+    dir: ./control
+  storage:
+    taskfile: ./storage/Taskfile.yml
+    dir: ./storage
+  native:
+    taskfile: ./native/Taskfile.yml
+    dir: ./native
