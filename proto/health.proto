@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package net.mioyi.lucuskv;
 
-option go_package = "mioyi.net/lucuskv/control/proto";
+option go_package = "mioyi.net/lucuskv/coordinator/proto";
 
 message HealthRequest {}
 message HealthResponse {

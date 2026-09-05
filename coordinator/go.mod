@@ -1,4 +1,4 @@
-module mioyi.net/lucuskv/control
+module mioyi.net/lucuskv/coordinator
 
 go 1.26.7
 

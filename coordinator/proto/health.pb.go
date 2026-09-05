@@ -110,7 +110,7 @@ const file_health_proto_rawDesc = "" +
 	"\x0eHealthResponse\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\bR\x05value2_\n" +
 	"\x0eStorageService\x12M\n" +
-	"\x06Health\x12 .net.mioyi.lucuskv.HealthRequest\x1a!.net.mioyi.lucuskv.HealthResponseB!Z\x1fmioyi.net/lucuskv/control/protob\x06proto3"
+	"\x06Health\x12 .net.mioyi.lucuskv.HealthRequest\x1a!.net.mioyi.lucuskv.HealthResponseB%Z#mioyi.net/lucuskv/coordinator/protob\x06proto3"
 
 var (
 	file_health_proto_rawDescOnce sync.Once

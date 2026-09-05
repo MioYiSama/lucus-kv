@@ -3,9 +3,9 @@
 version: "3"
 
 includes:
-  control:
-    taskfile: ./control/Taskfile.yml
-    dir: ./control
+  coordinator:
+    taskfile: ./coordinator/Taskfile.yml
+    dir: ./coordinator
   storage:
     taskfile: ./storage/Taskfile.yml
     dir: ./storage

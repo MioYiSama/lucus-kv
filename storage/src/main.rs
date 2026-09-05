@@ -1,14 +1,9 @@
+use crate::native::add;
 use std::error::Error;
-
 use tonic::{Request, Response, Status, transport::Server};
 
-unsafe extern "C" {
-    fn add(x: i32, y: i32) -> i32;
-}
-
-pub mod proto {
-    tonic::include_proto!("net.mioyi.lucuskv"); // The string specified here must match the proto package name
-}
+mod native;
+mod proto;
 
 struct A;
 

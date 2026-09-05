@@ -3,7 +3,8 @@ project(lucus-kv-native)
 
 add_library(${PROJECT_NAME} STATIC)
 target_sources(${PROJECT_NAME} PRIVATE
-  src/main.cpp
+  FILE_SET CXX_MODULES FILES
+  src/lucus.cppm
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
