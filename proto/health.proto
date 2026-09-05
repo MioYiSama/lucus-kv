@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package net.mioyi.lucuskv;
+
+option go_package = "mioyi.net/lucuskv/control/proto";
+
+message HealthRequest {}
+message HealthResponse {
+  bool value = 1;
+}
+
+service StorageService {
+  rpc Health(HealthRequest) returns (HealthResponse);
+}

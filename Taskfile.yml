@@ -12,3 +12,10 @@ includes:
   native:
     taskfile: ./native/Taskfile.yml
     dir: ./native
+
+tasks:
+  proto:
+    cmd: buf generate
+
+  tree:
+    cmd: tree --gitignore
