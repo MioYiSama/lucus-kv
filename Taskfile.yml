@@ -23,3 +23,8 @@ tasks:
     cmds:
       - task native:build:release
       - task storage:build:release
+
+  run:
+    cmds:
+      - task native:build
+      - task storage:run

@@ -7,14 +7,14 @@ fn main() -> Result<(), Box<dyn Error>> {
         profile => return Err(format!("Unknown profile: {profile}").into()),
     };
 
-    let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+    let native_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .join("../native/build")
         .join(profile);
-    let lib_path = dir.join("liblucus-kv-native.a");
+    let native_lib = native_dir.join("liblucus-kv-native.a");
 
-    println!("cargo:rustc-link-search=native={}", dir.display());
+    println!("cargo:rustc-link-search=native={}", native_dir.display());
     println!("cargo:rustc-link-lib=static=lucus-kv-native");
-    println!("cargo:rerun-if-changed={}", lib_path.display());
+    println!("cargo:rerun-if-changed={}", native_lib.display());
     println!("cargo:rerun-if-env-changed=PROFILE");
 
     Ok(())

@@ -7,8 +7,8 @@ tasks:
     cmd: cmake --fresh -B build -G "Ninja Multi-Config" .
     env:
       CMAKE_EXPORT_COMPILE_COMMANDS: 1
-      sources:
-        - CMakeLists.txt
+    sources:
+      - CMakeLists.txt
 
   build:
     deps: [configure]
