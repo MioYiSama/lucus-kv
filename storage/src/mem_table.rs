@@ -52,16 +52,16 @@ impl InternalKey {
     }
 }
 
-pub struct MemTable<'a> {
+pub struct MemTable {
     counter: AtomicU64,
-    skip_list: SkipList<'a, InternalKey, Bytes>,
+    skip_list: SkipList<InternalKey, Bytes>,
 }
 
-impl<'a> MemTable<'a> {
+impl<'a> MemTable {
     pub fn new() -> Self {
         Self {
             counter: AtomicU64::new(0),
-            skip_list: SkipList::new(),
+            skip_list: SkipList::try_new().unwrap(),
         }
     }
 
@@ -72,13 +72,14 @@ impl<'a> MemTable<'a> {
         self.skip_list.put(key, value)
     }
 
-    pub fn get(&self, key: &str) -> Option<Bytes> {
-        todo!();
+    pub fn get(&self, key: &str) -> Option<&Bytes> {
+        let key = InternalKey::new_put(key.to_owned(), self.seq());
+        self.skip_list.get(&key)
     }
 
     pub fn delete(&mut self, key: &str) {
-        InternalKey::new_delete(key.to_owned(), self.seq());
-        todo!()
+        let key = InternalKey::new_delete(key.to_owned(), self.seq());
+        self.skip_list.put(key, Bytes::new());
     }
 
     #[inline(always)]
