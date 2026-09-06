@@ -1,12 +1,21 @@
-use std::error::Error;
+use std::{error::Error, path::PathBuf};
 
 fn main() -> Result<(), Box<dyn Error>> {
-    println!("cargo:rustc-link-search=native=../native/build/Debug");
-    println!("cargo:rustc-link-lib=static=lucus-kv-native");
-    println!("cargo:rerun-if-changed=../native/build/Debug/liblucus-kv-native.a");
+    let profile = match std::env::var("PROFILE")?.as_str() {
+        "debug" => "Debug",
+        "release" => "Release",
+        profile => return Err(format!("Unknown profile: {profile}").into()),
+    };
 
-    tonic_prost_build::compile_protos("../proto/health.proto")?;
-    println!("cargo:rerun-if-changed=../proto");
+    let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("../native/build")
+        .join(profile);
+    let lib_path = dir.join("liblucus-kv-native.a");
+
+    println!("cargo:rustc-link-search=native={}", dir.display());
+    println!("cargo:rustc-link-lib=static=lucus-kv-native");
+    println!("cargo:rerun-if-changed={}", lib_path.display());
+    println!("cargo:rerun-if-env-changed=PROFILE");
 
     Ok(())
 }

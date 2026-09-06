@@ -6,5 +6,11 @@ tasks:
   build:
     cmd: cargo build
 
+  build:release:
+    cmd: cargo build --release
+
   run:
     cmd: cargo run
+
+  run:release:
+    cmd: cargo run --release

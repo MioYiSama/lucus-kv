@@ -3,9 +3,6 @@
 version: "3"
 
 includes:
-  coordinator:
-    taskfile: ./coordinator/Taskfile.yml
-    dir: ./coordinator
   storage:
     taskfile: ./storage/Taskfile.yml
     dir: ./storage
@@ -14,8 +11,15 @@ includes:
     dir: ./native
 
 tasks:
-  proto:
-    cmd: buf generate
-
   tree:
     cmd: tree --gitignore
+
+  build:
+    cmds:
+      - task native:build
+      - task storage:build
+
+  build:release:
+    cmds:
+      - task native:build:release
+      - task storage:build:release
