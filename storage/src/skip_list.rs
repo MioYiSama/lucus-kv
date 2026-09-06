@@ -96,6 +96,43 @@ impl<K: Ord, V> SkipList<K, V> {
         None
     }
 
+    pub fn get_lower_bound(&self, target: &K) -> Option<(&K, &V)> {
+        let mut current = self.head;
+        let levels = unsafe { (&(*self.head.as_ptr()).next).len() };
+        if levels == 0 {
+            return None;
+        }
+        for level in (0..levels).rev() {
+            loop {
+                let next = unsafe { (&(*current.as_ptr()).next)[level] };
+                let Some(next) = next else {
+                    break;
+                };
+                let next_key = unsafe {
+                    (&(*next.as_ptr()).key)
+                        .as_ref()
+                        .expect("non-head skip-list node has no key")
+                };
+                if next_key < target {
+                    current = next;
+                } else {
+                    break;
+                }
+            }
+        }
+        let candidate = unsafe { (&(*current.as_ptr()).next)[0] }?;
+        let node = unsafe { &*candidate.as_ptr() };
+        let key = node
+            .key
+            .as_ref()
+            .expect("non-head skip-list node has no key");
+        let value = node
+            .value
+            .as_ref()
+            .expect("non-head skip-list node has no value");
+        Some((key, value))
+    }
+
     pub fn put(&mut self, key: K, value: V) -> bool {
         let height_limit = unsafe { self.head.as_ref().height };
         let current_height = self.max_height.load(std::sync::atomic::Ordering::Relaxed);
